@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import TextInput from './components/TextInput';
+import AnalysisResult from './components/AnalysisResult';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [analysis, setAnalysis] = useState(null);
+
+    const handleTextSubmit = async (text) => {
+        // Mock backend call, replace this with your actual API call later
+        const mockAnalysis = text.split(' ').map((word) => ({
+            text: word,
+            pos: 'noun',  // For now, assume everything is a noun (mock)
+            dependency: 'subject',  // Placeholder
+        }));
+
+        setAnalysis(mockAnalysis);
+    };
+
+    return (
+        <div>
+            <h1>Text Analyser</h1>
+            <TextInput onSubmit={handleTextSubmit} />
+            <AnalysisResult analysis={analysis} />
+        </div>
+    );
+};
 
 export default App;
